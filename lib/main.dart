@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:soundpool/soundpool.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,12 +22,78 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Xylophone extends StatelessWidget {
+class Xylophone extends StatefulWidget {
   const Xylophone({super.key});
+
+  @override
+  State<Xylophone> createState() => _XylophoneState();
+}
+
+class _XylophoneState extends State<Xylophone> {
+  Soundpool pool = Soundpool.fromOptions(options: SoundpoolOptions.kDefault);
+
+  List<int> _soundIds = [];
+
+  @override
+  void initState() {
+    super.initState();
+    initSoundPool();
+  }
+
+  Future<void> initSoundPool() async {
+    int soundId = await rootBundle
+        .load('assets/do1.wav')
+        .then((soundData) => pool.load(soundData));
+
+    _soundIds.add(soundId);
+
+    soundId = await rootBundle
+        .load('assets/re.wav')
+        .then((soundData) => pool.load(soundData));
+
+    _soundIds.add(soundId);
+
+    soundId = await rootBundle
+        .load('assets/mi.wav')
+        .then((soundData) => pool.load(soundData));
+
+    _soundIds.add(soundId);
+
+    soundId = await rootBundle
+        .load('assets/fa.wav')
+        .then((soundData) => pool.load(soundData));
+
+    _soundIds.add(soundId);
+
+    soundId = await rootBundle
+        .load('assets/sol.wav')
+        .then((soundData) => pool.load(soundData));
+
+    _soundIds.add(soundId);
+
+    soundId = await rootBundle
+        .load('assets/la.wav')
+        .then((soundData) => pool.load(soundData));
+
+    _soundIds.add(soundId);
+
+    soundId = await rootBundle
+        .load('assets/si.wav')
+        .then((soundData) => pool.load(soundData));
+
+    _soundIds.add(soundId);
+
+    soundId = await rootBundle
+        .load('assets/do2.wav')
+        .then((soundData) => pool.load(soundData));
+
+    _soundIds.add(soundId);
+  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('실로폰'),
@@ -64,7 +131,7 @@ class Xylophone extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 72.0),
-            child: gunban('도', Colors.orangeAccent),
+            child: gunban('도', Colors.black),
           ),
         ],
       ),
